@@ -1,0 +1,47 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.coditas"
+    },
+    "jhipsterVersion": "6.2.0",
+    "applicationType": "gateway",
+    "baseName": "CRmgmt",
+    "packageName": "com.coditas",
+    "packageFolder": "com/coditas",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": false,
+    "websocket": false,
+    "databaseType": "mongodb",
+    "devDatabaseType": "mongodb",
+    "prodDatabaseType": "mongodb",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": "eureka",
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "YjhmM2FhYzMyZDA5YjdiMTVkZGZkMjc3MTJiNWI5N2UzNDY1ZjEwMDk0MGI0YmNhMmM3MGYwYTA5M2E2YWMwNWI4ZjkyZWVkMjc5N2I3NGVhYWRiYTRiYjFkNzAzMTg5YjFiZjFjZmE0YjUzZTk1YzQ1MWY3MTE3MWQ1NjQ4ODQ=",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "react",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [
+      {
+        "name": "generator-jhipster-docker",
+        "version": "2.5.0"
+      },
+      {
+        "name": "generator-jhipster-swagger-cli",
+        "version": "3.0.1"
+      }
+    ],
+    "enableTranslation": false,
+    "blueprints": []
+  }
+}
