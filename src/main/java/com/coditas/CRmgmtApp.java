@@ -15,6 +15,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.core.env.Environment;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -25,6 +26,7 @@ import java.util.Collection;
 @EnableConfigurationProperties({ApplicationProperties.class})
 @EnableDiscoveryClient
 @EnableZuulProxy
+@EnableMongoRepositories(basePackages = "com.coditas.service")
 public class CRmgmtApp implements InitializingBean {
 
     private static final Logger log = LoggerFactory.getLogger(CRmgmtApp.class);

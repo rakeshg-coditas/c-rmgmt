@@ -2,23 +2,26 @@ package com.coditas.web.rest;
 
 
 import com.coditas.domain.User;
+import com.coditas.dto.Employee;
+import com.coditas.errors.ValidatorInterface;
 import com.coditas.repository.UserRepository;
 import com.coditas.security.SecurityUtils;
 import com.coditas.service.MailService;
 import com.coditas.service.UserService;
 import com.coditas.service.dto.PasswordChangeDTO;
 import com.coditas.service.dto.UserDTO;
+import com.coditas.service.employee.EmployeeService;
 import com.coditas.web.rest.errors.*;
 import com.coditas.web.rest.vm.KeyAndPasswordVM;
 import com.coditas.web.rest.vm.ManagedUserVM;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.*;
 
@@ -28,6 +31,18 @@ import java.util.*;
 @RestController
 @RequestMapping("/api")
 public class AccountResource {
+
+    // rakesh.ghonmode --> started
+
+
+    /*@Autowired
+    @Qualifier(value="employeeService")
+    private EmployeeService employeeService;*/
+
+    @Autowired
+    private EmployeeService employeeService;
+
+    // rakesh.ghonmode --> end
 
     private static class AccountResourceException extends RuntimeException {
         private AccountResourceException(String message) {
@@ -53,21 +68,34 @@ public class AccountResource {
     /**
      * {@code POST  /register} : register the user.
      *
-     * @param managedUserVM the managed user View Model.
      * @throws InvalidPasswordException {@code 400 (Bad Request)} if the password is incorrect.
      * @throws EmailAlreadyUsedException {@code 400 (Bad Request)} if the email is already used.
      * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already used.
      */
-    @PostMapping("/register")
+    @PostMapping("/login")
     @ResponseStatus(HttpStatus.CREATED)
-    public void registerAccount(@Valid @RequestBody ManagedUserVM managedUserVM) {
-        if (!checkPasswordLength(managedUserVM.getPassword())) {
-            throw new InvalidPasswordException();
+    public void loginUser(@Valid @RequestBody String jsonIdToken, HttpServletRequest request, HttpServletResponse response) {
+
+        try {
+
+            employeeService.googleSignIn(jsonIdToken);
+
+
+        }catch(Exception e){
+            e.printStackTrace();
         }
-        User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
-        mailService.sendActivationEmail(user);
     }
 
+    @PostMapping("/register")
+    public String registerEmployee(@RequestBody Employee employee,HttpServletRequest request,HttpServletResponse response){
+        String result="";
+        try{
+            result = employeeService.registerEmployee(employee);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
     /**
      * {@code GET  /activate} : activate the registered user.
      *

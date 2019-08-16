@@ -8,7 +8,7 @@
     "baseName": "CRmgmt",
     "packageName": "com.coditas",
     "packageFolder": "com/coditas",
-    "serverPort": "8080",
+    "serverPort": "",
     "authenticationType": "jwt",
     "cacheProvider": "ehcache",
     "enableHibernateCache": false,

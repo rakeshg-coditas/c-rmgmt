@@ -9,8 +9,9 @@ import com.coditas.security.AuthoritiesConstants;
 import com.coditas.security.SecurityUtils;
 import com.coditas.service.dto.UserDTO;
 import com.coditas.service.util.RandomUtil;
-import com.coditas.web.rest.errors.*;
-
+import com.coditas.web.rest.errors.EmailAlreadyUsedException;
+import com.coditas.web.rest.errors.InvalidPasswordException;
+import com.coditas.web.rest.errors.LoginAlreadyUsedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;

@@ -44,7 +44,7 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017
-      database: CRmgmt
+      database: crm
   mail:
     host: localhost
     port: 25
