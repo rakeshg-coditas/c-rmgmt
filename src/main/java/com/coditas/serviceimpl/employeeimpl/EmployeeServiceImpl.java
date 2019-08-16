@@ -31,10 +31,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public Employee googleSignIn(String jsonIdToken){
+    public String googleSignIn(String jsonIdToken){
 
         Employee emp = null;
-
+        String msg = "";
         try{
                 JSONObject jsonObject = new JSONObject(jsonIdToken);
                 String idToken = (String)jsonObject.get("idToken");
@@ -58,19 +58,26 @@ public class EmployeeServiceImpl implements EmployeeService {
                     String name = (String) payload.get("name");
                     String picture = (String) payload.get("picture");
 
-                    Employee employee = new Employee();
+                    Employee employee = isUserAvailable(email);
+                    if(employee!=null){
+                        employee.setPicture(picture);
+                        msg = "Employee Logged in Successfully.";
+                    }else{
+                        msg = "Employee not registered.";
+                    }
+                    /*Employee employee = new Employee();
                     employee.setId(new ObjectId().toString());
                     employee.setEmail(email);
                     employee.setName(name);
                     employee.setPicture(picture);
 
-                    emp = saveUser(employee);
+                    emp = saveUser(employee);*/
                     System.out.println("successs");
                 }
         }catch(Exception e){
 
         }
-        return emp;
+        return msg;
     }
 
 
