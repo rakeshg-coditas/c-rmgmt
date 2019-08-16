@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface EmployeeService {
 
-        public Employee googleSignIn(String jsonIdToken);
+        public String googleSignIn(String jsonIdToken);
 
         public String registerEmployee(Employee employee);
 }
