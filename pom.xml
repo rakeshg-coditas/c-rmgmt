@@ -337,11 +337,19 @@
             <artifactId>google-api-client</artifactId>
             <version>1.30.2</version>
         </dependency>
-             <!--  <dependency>
-                   <groupId>com.google.apis</groupId>
-                   <artifactId>google-api-services-oauth2</artifactId>
-                   <version>v1-rev155-1.25.0</version>
-               </dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.8</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--  <dependency>
+              <groupId>com.google.apis</groupId>
+              <artifactId>google-api-services-oauth2</artifactId>
+              <version>v1-rev155-1.25.0</version>
+          </dependency>-->
     </dependencies>
 
     <build>
