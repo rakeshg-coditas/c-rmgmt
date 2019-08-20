@@ -3,7 +3,6 @@ package com.coditas.web.rest;
 
 import com.coditas.domain.User;
 import com.coditas.dto.Employee;
-import com.coditas.errors.ValidatorInterface;
 import com.coditas.repository.UserRepository;
 import com.coditas.security.SecurityUtils;
 import com.coditas.service.MailService;
@@ -74,16 +73,19 @@ public class AccountResource {
      */
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.CREATED)
-    public void loginUser(@Valid @RequestBody String jsonIdToken, HttpServletRequest request, HttpServletResponse response) {
+    public String loginUser(@Valid @RequestBody String jsonIdToken, HttpServletRequest request, HttpServletResponse response) {
+
+        String msg = "";
 
         try {
 
-            employeeService.googleSignIn(jsonIdToken);
+           msg = employeeService.googleSignIn(jsonIdToken);
 
 
         }catch(Exception e){
             e.printStackTrace();
         }
+        return  msg;
     }
 
     @PostMapping("/register")
