@@ -11,7 +11,6 @@ import com.coditas.service.MailService;
 import com.coditas.service.UserService;
 import com.coditas.service.dto.PasswordChangeDTO;
 import com.coditas.service.dto.UserDTO;
-import com.coditas.service.employee.EmployeeService;
 import com.coditas.web.rest.errors.ExceptionTranslator;
 import com.coditas.web.rest.vm.KeyAndPasswordVM;
 import com.coditas.web.rest.vm.ManagedUserVM;

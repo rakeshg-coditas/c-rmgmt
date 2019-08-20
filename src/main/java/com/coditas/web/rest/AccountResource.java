@@ -1,22 +1,20 @@
 package com.coditas.web.rest;
 
 
+import com.coditas.domain.Employee;
 import com.coditas.domain.User;
-import com.coditas.dto.Employee;
 import com.coditas.repository.UserRepository;
 import com.coditas.security.SecurityUtils;
 import com.coditas.service.MailService;
 import com.coditas.service.UserService;
 import com.coditas.service.dto.PasswordChangeDTO;
 import com.coditas.service.dto.UserDTO;
-import com.coditas.service.employee.EmployeeService;
 import com.coditas.web.rest.errors.*;
 import com.coditas.web.rest.vm.KeyAndPasswordVM;
 import com.coditas.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
@@ -38,8 +36,8 @@ public class AccountResource {
     @Qualifier(value="employeeService")
     private EmployeeService employeeService;*/
 
-    @Autowired
-    private EmployeeService employeeService;
+  /*  @Autowired
+    private EmployeeService employeeService;*/
 
     // rakesh.ghonmode --> end
 
@@ -71,15 +69,15 @@ public class AccountResource {
      * @throws EmailAlreadyUsedException {@code 400 (Bad Request)} if the email is already used.
      * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already used.
      */
-    @PostMapping("/login")
+    @PostMapping("/google-sign-in")
     @ResponseStatus(HttpStatus.CREATED)
-    public String loginUser(@Valid @RequestBody String jsonIdToken, HttpServletRequest request, HttpServletResponse response) {
+    public String loginUser(@RequestBody String jsonIdToken, HttpServletRequest request, HttpServletResponse response) {
 
         String msg = "";
 
         try {
-
-           msg = employeeService.googleSignIn(jsonIdToken);
+            System.out.println("==========");
+          //  msg = employeeService.googleSignIn(jsonIdToken);
 
 
         }catch(Exception e){
@@ -89,10 +87,10 @@ public class AccountResource {
     }
 
     @PostMapping("/register")
-    public String registerEmployee(@RequestBody Employee employee,HttpServletRequest request,HttpServletResponse response){
+    public String registerEmployee(@RequestBody Employee employee, HttpServletRequest request, HttpServletResponse response){
         String result="";
         try{
-            result = employeeService.registerEmployee(employee);
+         //   result = employeeService.registerEmployee(employee);
         }catch(Exception e){
             e.printStackTrace();
         }
