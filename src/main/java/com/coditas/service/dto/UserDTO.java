@@ -43,6 +43,7 @@ public class UserDTO {
     @Size(min = 2, max = 10)
     private String langKey;
 
+    @Size(min = 1,max = 20)
     private String createdBy;
 
     private Instant createdDate;
