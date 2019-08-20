@@ -1,16 +1,19 @@
 package com.coditas.web.rest;
 
 
+import com.coditas.domain.Employee;
 import com.coditas.domain.User;
-import com.coditas.dto.Employee;
 import com.coditas.repository.UserRepository;
 import com.coditas.security.SecurityUtils;
+import com.coditas.service.EmployeeService;
 import com.coditas.service.MailService;
 import com.coditas.service.UserService;
 import com.coditas.service.dto.PasswordChangeDTO;
 import com.coditas.service.dto.UserDTO;
-import com.coditas.service.employee.EmployeeService;
-import com.coditas.web.rest.errors.*;
+import com.coditas.web.rest.errors.EmailAlreadyUsedException;
+import com.coditas.web.rest.errors.EmailNotFoundException;
+import com.coditas.web.rest.errors.InvalidPasswordException;
+import com.coditas.web.rest.errors.LoginAlreadyUsedException;
 import com.coditas.web.rest.vm.KeyAndPasswordVM;
 import com.coditas.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.StringUtils;
@@ -19,10 +22,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.*;
+import java.util.Optional;
 
 /**
  * REST controller for managing the current user's account.
@@ -79,7 +83,7 @@ public class AccountResource {
 
         try {
 
-           msg = employeeService.googleSignIn(jsonIdToken);
+         //  msg = employeeService.googleSignIn(jsonIdToken);
 
 
         }catch(Exception e){
@@ -89,10 +93,10 @@ public class AccountResource {
     }
 
     @PostMapping("/register")
-    public String registerEmployee(@RequestBody Employee employee,HttpServletRequest request,HttpServletResponse response){
+    public String registerEmployee(@RequestBody Employee employee, HttpServletRequest request, HttpServletResponse response){
         String result="";
         try{
-            result = employeeService.registerEmployee(employee);
+         //   result = employeeService.registerEmployee(employee);
         }catch(Exception e){
             e.printStackTrace();
         }

@@ -1,0 +1,74 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "email",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "skills",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "projects",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "picture",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "skill_category",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "report_to",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "team",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "career_start_date",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "joining_date",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "role",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "employeeId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "billable",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "officeLocation",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "employmentType",
+            "fieldType": "String"
+        }
+    ],
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "employee",
+    "databaseType": "mongodb",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}
