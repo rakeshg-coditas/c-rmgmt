@@ -5,6 +5,7 @@ import com.coditas.service.EmployeeService;
 import com.coditas.web.rest.errors.BadRequestAlertException;
 import com.coditas.service.dto.EmployeeDTO;
 
+import com.mongodb.DBCollection;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -16,8 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * REST controller for managing {@link com.coditas.domain.Employee}.
@@ -46,6 +46,9 @@ public class EmployeeResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new employeeDTO, or with status {@code 400 (Bad Request)} if the employee has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+
+
+
     @PostMapping("/employees")
     public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO) throws URISyntaxException {
         log.debug("REST request to save Employee : {}", employeeDTO);
@@ -89,6 +92,15 @@ public class EmployeeResource {
     public List<EmployeeDTO> getAllEmployees() {
         log.debug("REST request to get all Employees");
         return employeeService.findAll();
+    }
+
+    @GetMapping("/employeesData")
+    public Map<String,List<Object>> getEmployeesMasterData() {
+        log.debug("REST request to get all Employees");
+
+
+
+        return employeeService.getMasterData();
     }
 
     /**

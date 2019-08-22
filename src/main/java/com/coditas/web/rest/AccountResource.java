@@ -69,7 +69,7 @@ public class AccountResource {
      * @throws EmailAlreadyUsedException {@code 400 (Bad Request)} if the email is already used.
      * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already used.
      */
-    @PostMapping("/google-sign-in")
+    @PostMapping("/login")
     @ResponseStatus(HttpStatus.CREATED)
     public String loginUser(@RequestBody String jsonIdToken, HttpServletRequest request, HttpServletResponse response) {
 

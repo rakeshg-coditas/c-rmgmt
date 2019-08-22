@@ -1,14 +1,17 @@
 package com.coditas.service.impl;
 
 import com.coditas.constants.CrmsConstants;
+import com.coditas.domain.Skills;
 import com.coditas.errors.ValidatorInterface;
 import com.coditas.errors.ValidatorInterfaceImpl;
+import com.coditas.repository.*;
 import com.coditas.security.jwt.TokenProvider;
 import com.coditas.service.EmployeeService;
 import com.coditas.domain.Employee;
-import com.coditas.repository.EmployeeRepository;
 import com.coditas.service.dto.EmployeeDTO;
+import com.coditas.service.dto.SkillsDTO;
 import com.coditas.service.mapper.EmployeeMapper;
+import com.coditas.service.mapper.RoleMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
@@ -30,10 +33,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -50,6 +50,24 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private TokenProvider tokenProvider;
+
+    @Autowired
+    private SkillsRepository skillsRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private RoleMapper roleMapper;
+
+    @Autowired
+    private BillableRepository billableRepository;
+
+    @Autowired
+    private OfficeLocationRepository officeLocationRepository;
+
+    @Autowired
+    EmploymentTypeRepository employmentTypeRepository;
 
     private final Logger log = LoggerFactory.getLogger(EmployeeServiceImpl.class);
 
@@ -229,5 +247,43 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> employee = mongoTemplate.find(query,Employee.class);
 
         return employee==null||employee.isEmpty()?null:employee.get(0);
+    }
+
+    @Override
+    public Map<String, List<Object>> getMasterData() {
+
+        Map<String,List<Object>> masterDataMap = new HashMap<>();
+
+                List<Object> skillsList ;
+                skillsList =(List)skillsRepository.findAll();
+                masterDataMap.put("skills",skillsList);
+
+                List<Object> rolesList;
+                /*List<Object> rolesList_1;
+                List<Object> rolesList_2;
+                List<Object> rolesList_3;*/
+
+                /*rolesList = roleRepository.findAll().stream().map(roleMapper::toDto).collect(Collectors.toCollection(ArrayList::new));   // all roles
+                rolesList_1 = roleRepository.getAvailableRoles().stream().map(roleMapper::toDto).collect(Collectors.toCollection(ArrayList::new));  // valid roles using @Query annotation
+                rolesList_2 = roleRepository.findIdAndNameAndExcludeIsDeleted(false).stream().collect(Collectors.toList());//.stream().map(roleMapper::toDto).collect(Collectors.toCollection(ArrayList::new));   // valid roles using
+*/
+                rolesList = roleRepository.findIdAndNameAndByIsDeleted(false).stream().collect(Collectors.toList());
+
+                masterDataMap.put("designation",rolesList);
+
+                List<Object> billableList;
+                billableList = (List)billableRepository.findAll();
+                masterDataMap.put("isBillable",billableList);
+
+                List<Object> locationList;
+                locationList = (List)officeLocationRepository.findAll();
+                masterDataMap.put("locations",locationList);
+
+                List<Object> empTypeList;
+                empTypeList = (List)employmentTypeRepository.findAll();
+                masterDataMap.put("empTypeList",empTypeList);
+
+
+        return masterDataMap;
     }
 }

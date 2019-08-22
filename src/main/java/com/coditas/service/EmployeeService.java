@@ -5,6 +5,7 @@ import com.coditas.service.dto.EmployeeDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -45,4 +46,6 @@ public interface EmployeeService {
     void delete(String id);
 
     String googleSignIn(String token);
+
+    Map<String,List<Object>> getMasterData();
 }
