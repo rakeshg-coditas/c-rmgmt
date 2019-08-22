@@ -90,6 +90,19 @@ public class EmployeeResource {
         return employeeService.findAll();
     }
 
+    @GetMapping("/allTeamMembers")
+    public List<EmployeeDTO> getEmployees() {
+        log.debug("REST request to get all Employees info");
+        return employeeService.findAllInfo();
+    }
+
+    @GetMapping("/allTeamMembersByLead/{empId}")
+    public List<EmployeeDTO> getEmployeesByLead(@PathVariable("empId") EmployeeDTO empId) {
+        log.debug("REST request to get all Employees info by lead {}",empId);
+        return employeeService.findAllInfoByLead(empId);
+    }
+
+
     /**
      * {@code GET  /employees/:id} : get the "id" employee.
      *

@@ -1,0 +1,22 @@
+{
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "isDeleted",
+            "fieldType": "Boolean"
+        }
+    ],
+    "dto": "mapstruct",
+    "searchEngine": false,
+    "service": "serviceImpl",
+    "entityTableName": "role",
+    "databaseType": "mongodb",
+    "jpaMetamodelFiltering": false,
+    "pagination": "no"
+}

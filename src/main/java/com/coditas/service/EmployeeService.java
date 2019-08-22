@@ -25,6 +25,19 @@ public interface EmployeeService {
      */
     List<EmployeeDTO> findAll();
 
+    /**
+     * Get all the employees info.
+     *
+     * @return the list of entities.
+     */
+    List<EmployeeDTO> findAllInfo();
+
+    /**
+     * Get all the employees info.
+     *
+     * @return the list of entities.
+     */
+    List<EmployeeDTO> findAllInfoByLead(EmployeeDTO employeeDTO);
 
     /**
      * Get the "id" employee.
