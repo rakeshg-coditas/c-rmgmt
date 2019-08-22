@@ -24,10 +24,10 @@ public class Employee implements Serializable {
     private String name;
 
     @Field("skills")
-    private String skills;
+    private String[] skills;
 
     @Field("projects")
-    private String projects;
+    private String[] projects;
 
     @Field("picture")
     private String picture;
@@ -97,29 +97,29 @@ public class Employee implements Serializable {
         this.name = name;
     }
 
-    public String getSkills() {
+    public String[] getSkills() {
         return skills;
     }
 
-    public Employee skills(String skills) {
+    public Employee skills(String[] skills) {
         this.skills = skills;
         return this;
     }
 
-    public void setSkills(String skills) {
+    public void setSkills(String[] skills) {
         this.skills = skills;
     }
 
-    public String getProjects() {
+    public String[] getProjects() {
         return projects;
     }
 
-    public Employee projects(String projects) {
+    public Employee projects(String[] projects) {
         this.projects = projects;
         return this;
     }
 
-    public void setProjects(String projects) {
+    public void setProjects(String[] projects) {
         this.projects = projects;
     }
 

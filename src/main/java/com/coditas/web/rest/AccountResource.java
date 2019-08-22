@@ -5,28 +5,22 @@ import com.coditas.domain.Employee;
 import com.coditas.domain.User;
 import com.coditas.repository.UserRepository;
 import com.coditas.security.SecurityUtils;
-import com.coditas.service.EmployeeService;
 import com.coditas.service.MailService;
 import com.coditas.service.UserService;
 import com.coditas.service.dto.PasswordChangeDTO;
 import com.coditas.service.dto.UserDTO;
-import com.coditas.web.rest.errors.EmailAlreadyUsedException;
-import com.coditas.web.rest.errors.EmailNotFoundException;
-import com.coditas.web.rest.errors.InvalidPasswordException;
-import com.coditas.web.rest.errors.LoginAlreadyUsedException;
+import com.coditas.web.rest.errors.*;
 import com.coditas.web.rest.vm.KeyAndPasswordVM;
 import com.coditas.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * REST controller for managing the current user's account.
@@ -42,8 +36,8 @@ public class AccountResource {
     @Qualifier(value="employeeService")
     private EmployeeService employeeService;*/
 
-    @Autowired
-    private EmployeeService employeeService;
+  /*  @Autowired
+    private EmployeeService employeeService;*/
 
     // rakesh.ghonmode --> end
 
@@ -77,13 +71,13 @@ public class AccountResource {
      */
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.CREATED)
-    public String loginUser(@Valid @RequestBody String jsonIdToken, HttpServletRequest request, HttpServletResponse response) {
+    public String loginUser(@RequestBody String jsonIdToken, HttpServletRequest request, HttpServletResponse response) {
 
         String msg = "";
 
         try {
-
-         //  msg = employeeService.googleSignIn(jsonIdToken);
+            System.out.println("==========");
+          //  msg = employeeService.googleSignIn(jsonIdToken);
 
 
         }catch(Exception e){

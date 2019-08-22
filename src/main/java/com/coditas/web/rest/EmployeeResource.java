@@ -1,9 +1,11 @@
 package com.coditas.web.rest;
 
+import com.coditas.domain.Employee;
 import com.coditas.service.EmployeeService;
 import com.coditas.web.rest.errors.BadRequestAlertException;
 import com.coditas.service.dto.EmployeeDTO;
 
+import com.mongodb.DBCollection;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -15,8 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * REST controller for managing {@link com.coditas.domain.Employee}.
@@ -45,6 +46,9 @@ public class EmployeeResource {
      * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new employeeDTO, or with status {@code 400 (Bad Request)} if the employee has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
+
+
+
     @PostMapping("/employees")
     public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO) throws URISyntaxException {
         log.debug("REST request to save Employee : {}", employeeDTO);
@@ -90,18 +94,14 @@ public class EmployeeResource {
         return employeeService.findAll();
     }
 
-    @GetMapping("/allTeamMembers")
-    public List<EmployeeDTO> getEmployees() {
-        log.debug("REST request to get all Employees info");
-        return employeeService.findAllInfo();
-    }
+    @GetMapping("/employeesData")
+    public Map<String,List<Object>> getEmployeesMasterData() {
+        log.debug("REST request to get all Employees");
 
-    @GetMapping("/allTeamMembersByLead/{empId}")
-    public List<EmployeeDTO> getEmployeesByLead(@PathVariable("empId") EmployeeDTO empId) {
-        log.debug("REST request to get all Employees info by lead {}",empId);
-        return employeeService.findAllInfoByLead(empId);
-    }
 
+
+        return employeeService.getMasterData();
+    }
 
     /**
      * {@code GET  /employees/:id} : get the "id" employee.
@@ -128,4 +128,18 @@ public class EmployeeResource {
         employeeService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
     }
+
+    @PostMapping("/user/login")
+    public String googleLogin(@RequestBody String googleToken) {
+        log.debug("REST request to login : {}", googleToken);
+
+        System.out.println("==================================");
+        //employeeService.googleSignIn(googleToken);
+
+        return employeeService.googleSignIn(googleToken);
+    }
+
+
+
+
 }

@@ -43,11 +43,11 @@ public class EmployeeResourceIT {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_SKILLS = "AAAAAAAAAA";
-    private static final String UPDATED_SKILLS = "BBBBBBBBBB";
+    private static final String[] DEFAULT_SKILLS = {"AAAAAAAAAA"};
+    private static final String[] UPDATED_SKILLS = {"BBBBBBBBBB "};
 
-    private static final String DEFAULT_PROJECTS = "AAAAAAAAAA";
-    private static final String UPDATED_PROJECTS = "BBBBBBBBBB";
+    private static final String[] DEFAULT_PROJECTS = {"AAAAAAAAAA"};
+    private static final String[] UPDATED_PROJECTS = {"BBBBBBBBBB"};
 
     private static final String DEFAULT_PICTURE = "AAAAAAAAAA";
     private static final String UPDATED_PICTURE = "BBBBBBBBBB";
@@ -256,7 +256,7 @@ public class EmployeeResourceIT {
             .andExpect(jsonPath("$.[*].officeLocation").value(hasItem(DEFAULT_OFFICE_LOCATION.toString())))
             .andExpect(jsonPath("$.[*].employmentType").value(hasItem(DEFAULT_EMPLOYMENT_TYPE.toString())));
     }
-    
+
     @Test
     public void getEmployee() throws Exception {
         // Initialize the database

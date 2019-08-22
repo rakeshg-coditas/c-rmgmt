@@ -12,17 +12,9 @@ import password, { PasswordState } from 'app/modules/account/password/password.r
 import settings, { SettingsState } from 'app/modules/account/settings/settings.reducer';
 import passwordReset, { PasswordResetState } from 'app/modules/account/password-reset/password-reset.reducer';
 // prettier-ignore
-import client, {
-  ClientState
-} from 'app/entities/client/client.reducer';
-// prettier-ignore
-import notification, {
-  NotificationState
-} from 'app/entities/notification/notification.reducer';
-// prettier-ignore
-import project, {
-  ProjectState
-} from 'app/entities/project/project.reducer';
+import teamMembers, {
+  TeamMembersState
+} from 'app/entities/team-members/team-members.reducer';
 // prettier-ignore
 import employee, {
   EmployeeState
@@ -43,9 +35,7 @@ export interface IRootState {
   readonly passwordReset: PasswordResetState;
   readonly password: PasswordState;
   readonly settings: SettingsState;
-  readonly client: ClientState;
-  readonly notification: NotificationState;
-  readonly project: ProjectState;
+  readonly teamMembers: TeamMembersState;
   readonly employee: EmployeeState;
   readonly role: RoleState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
@@ -62,9 +52,7 @@ const rootReducer = combineReducers<IRootState>({
   passwordReset,
   password,
   settings,
-  client,
-  notification,
-  project,
+  teamMembers,
   employee,
   role,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */

@@ -1,13 +1,17 @@
 package com.coditas.service;
 
+import com.coditas.domain.Employee;
 import com.coditas.service.dto.EmployeeDTO;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
  * Service Interface for managing {@link com.coditas.domain.Employee}.
  */
+@Service
 public interface EmployeeService {
 
     /**
@@ -25,19 +29,6 @@ public interface EmployeeService {
      */
     List<EmployeeDTO> findAll();
 
-    /**
-     * Get all the employees info.
-     *
-     * @return the list of entities.
-     */
-    List<EmployeeDTO> findAllInfo();
-
-    /**
-     * Get all the employees info.
-     *
-     * @return the list of entities.
-     */
-    List<EmployeeDTO> findAllInfoByLead(EmployeeDTO employeeDTO);
 
     /**
      * Get the "id" employee.
@@ -53,4 +44,8 @@ public interface EmployeeService {
      * @param id the id of the entity.
      */
     void delete(String id);
+
+    String googleSignIn(String token);
+
+    Map<String,List<Object>> getMasterData();
 }

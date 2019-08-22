@@ -1,16 +1,16 @@
 package com.coditas.repository;
 
-import com.coditas.domain.Employee;
+import com.coditas.domain.TeamMembers;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 
 /**
- * Spring Data MongoDB repository for the Employee entity.
+ * Spring Data MongoDB repository for the TeamMembers entity.
  */
-
+@SuppressWarnings("unused")
 @Repository
-public interface EmployeeRepository extends MongoRepository<Employee, String> {
+public interface TeamMembersRepository extends MongoRepository<TeamMembers, String> {
 
 }

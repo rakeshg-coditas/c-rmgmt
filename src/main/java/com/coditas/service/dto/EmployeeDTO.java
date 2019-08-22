@@ -1,7 +1,4 @@
 package com.coditas.service.dto;
-import com.fasterxml.jackson.annotation.JsonInclude;
-
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.io.Serializable;
 import java.util.Objects;
@@ -9,7 +6,6 @@ import java.util.Objects;
 /**
  * A DTO for the {@link com.coditas.domain.Employee} entity.
  */
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class EmployeeDTO implements Serializable {
 
     private String id;
@@ -18,9 +14,9 @@ public class EmployeeDTO implements Serializable {
 
     private String name;
 
-    private String skills;
+    private String[] skills;
 
-    private String projects;
+    private String[] projects;
 
     private String picture;
 
@@ -69,19 +65,19 @@ public class EmployeeDTO implements Serializable {
         this.name = name;
     }
 
-    public String getSkills() {
+    public String[] getSkills() {
         return skills;
     }
 
-    public void setSkills(String skills) {
+    public void setSkills(String[] skills) {
         this.skills = skills;
     }
 
-    public String getProjects() {
+    public String[] getProjects() {
         return projects;
     }
 
-    public void setProjects(String projects) {
+    public void setProjects(String[] projects) {
         this.projects = projects;
     }
 

@@ -9,14 +9,8 @@ import { NavDropdown } from './menu-components';
 export const EntitiesMenu = props => (
   // tslint:disable-next-line:jsx-self-close
   <NavDropdown icon="th-list" name="Entities" id="entity-menu">
-    <MenuItem icon="asterisk" to="/entity/client">
-      Client
-    </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/notification">
-      Notification
-    </MenuItem>
-    <MenuItem icon="asterisk" to="/entity/project">
-      Project
+    <MenuItem icon="asterisk" to="/entity/team-members">
+      Team Members
     </MenuItem>
     <MenuItem icon="asterisk" to="/entity/employee">
       Employee
