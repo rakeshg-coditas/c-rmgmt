@@ -1,9 +1,12 @@
 package com.coditas.service.impl;
 
+import com.coditas.domain.Role;
+import com.coditas.repository.RoleRepository;
 import com.coditas.service.EmployeeService;
 import com.coditas.service.TeamMembersService;
 import com.coditas.domain.TeamMembers;
 import com.coditas.repository.TeamMembersRepository;
+import com.coditas.service.dto.EmployeeDTO;
 import com.coditas.service.dto.TeamMembersDTO;
 import com.coditas.service.mapper.TeamMembersMapper;
 import org.slf4j.Logger;
@@ -12,9 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -31,6 +32,11 @@ public class TeamMembersServiceImpl implements TeamMembersService {
 
     @Autowired
     private EmployeeService employeeService;
+
+
+    @Autowired
+    private RoleRepository roleRepository;
+
 
     public TeamMembersServiceImpl(TeamMembersRepository teamMembersRepository, TeamMembersMapper teamMembersMapper) {
         this.teamMembersRepository = teamMembersRepository;
@@ -89,9 +95,38 @@ public class TeamMembersServiceImpl implements TeamMembersService {
         teamMembersRepository.deleteById(id);
     }
 
-    public List<TeamMembersDTO> getLeadDetails(){
+    public List<TeamMembersDTO> getLeadDetails() {
         //employeeService.getLeadDetails();
         return null;
+    }
+
+    @Override
+    public Map<String, List<Object>> getMasterLeadAndMembersData() {
+        Map<String, List<Object>> masterDataMap = new HashMap<>();
+        List<Object> roleList;
+        List<Object> leadList = null;
+        Role roleName=new Role();
+        roleList=roleRepository.findIdByNameAndIsDeleted("LEAD",false);
+        //System.out.println(">>>>"+roleList);
+        for (Object obj:roleList){
+            Role role=(Role)obj;
+            if(role != null && role.getName().equals("LEAD")){
+                roleName=role;
+                break;
+            }
+        }
+
+        List<EmployeeDTO> employeeDTOS= employeeService.findAll();
+
+        for (EmployeeDTO employeeDTO:employeeDTOS){
+            if(employeeDTO.getRole()!=null && employeeDTO.getRole().equals(roleName.getId())){
+                //System.out.println(">>>>employeeDTO"+employeeDTO);
+                leadList.add(employeeDTO);
+            }
+        }
+        masterDataMap.put("Leads",leadList);
+
+        return masterDataMap;
     }
 
 }

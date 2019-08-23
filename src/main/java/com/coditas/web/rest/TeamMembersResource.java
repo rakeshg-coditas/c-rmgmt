@@ -16,6 +16,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -119,5 +120,11 @@ public class TeamMembersResource {
         log.debug("REST request to delete TeamMembers : {}", id);
         teamMembersService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
+    }
+
+    @GetMapping("/team-members-data")
+    public Map<String,List<Object>> getAllLeadAndMembersData() {
+        log.debug("REST request to get all Lead And Members");
+        return teamMembersService.getMasterLeadAndMembersData();
     }
 }

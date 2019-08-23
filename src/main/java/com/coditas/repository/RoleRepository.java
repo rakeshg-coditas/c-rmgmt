@@ -28,5 +28,7 @@ public interface RoleRepository extends MongoRepository<Role, String> {
     @Query(fields="{ id : 1 , name : 1 }")
     public List<Role> findIdAndNameAndByIsDeleted(boolean isDeleted);
 
+    @Query(fields="{ id : 1 , name : 1 }")
+    public List<Object> findIdByNameAndIsDeleted(String name, boolean isDeleted);
 
 }
