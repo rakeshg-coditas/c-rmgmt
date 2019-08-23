@@ -22,7 +22,7 @@ import java.util.Optional;
  * REST controller for managing {@link com.coditas.domain.TeamMembers}.
  */
 @RestController
-@RequestMapping("/apiii")
+@RequestMapping("/api")
 public class TeamMembersResource {
 
     private final Logger log = LoggerFactory.getLogger(TeamMembersResource.class);
