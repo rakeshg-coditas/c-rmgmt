@@ -129,7 +129,7 @@ public class EmployeeResource {
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
     }
 
-    @PostMapping("/user/login")
+    @PostMapping("/user/googlelogin")
     public String googleLogin(@RequestBody String googleToken) {
         log.debug("REST request to login : {}", googleToken);
 
@@ -138,6 +138,7 @@ public class EmployeeResource {
 
         return employeeService.googleSignIn(googleToken);
     }
+
 
 
 

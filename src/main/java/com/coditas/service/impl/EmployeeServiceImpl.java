@@ -89,6 +89,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDTO save(EmployeeDTO employeeDTO) {
         log.debug("Request to save Employee : {}", employeeDTO);
+        Employee emp = isUserAvailable(employeeDTO.getEmail());
+        if(emp!=null){
+          employeeDTO.setId(emp.getId());
+
+        }
         Employee employee = employeeMapper.toEntity(employeeDTO);
         employee = employeeRepository.save(employee);
         return employeeMapper.toDto(employee);
@@ -162,7 +167,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 employee = isUserAvailable(email);
                 if (employee == null) {
                     Employee emp = new Employee();
-                    emp.setId(new ObjectId().toString());
+                    //emp.setId(new ObjectId().toString());
                     emp.setEmail(email);
                     emp.setName(name);
                     emp.setPicture(picture);
@@ -286,4 +291,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return masterDataMap;
     }
+
+
 }

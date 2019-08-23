@@ -1,10 +1,10 @@
 package com.coditas.web.rest;
 
 
-import com.coditas.domain.Employee;
 import com.coditas.domain.User;
 import com.coditas.repository.UserRepository;
 import com.coditas.security.SecurityUtils;
+import com.coditas.service.EmployeeService;
 import com.coditas.service.MailService;
 import com.coditas.service.UserService;
 import com.coditas.service.dto.PasswordChangeDTO;
@@ -15,7 +15,7 @@ import com.coditas.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,8 +36,8 @@ public class AccountResource {
     @Qualifier(value="employeeService")
     private EmployeeService employeeService;*/
 
-  /*  @Autowired
-    private EmployeeService employeeService;*/
+    @Autowired
+  private EmployeeService employeeService;
 
     // rakesh.ghonmode --> end
 
@@ -69,32 +69,15 @@ public class AccountResource {
      * @throws EmailAlreadyUsedException {@code 400 (Bad Request)} if the email is already used.
      * @throws LoginAlreadyUsedException {@code 400 (Bad Request)} if the login is already used.
      */
-    @PostMapping("/login")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String loginUser(@RequestBody String jsonIdToken, HttpServletRequest request, HttpServletResponse response) {
-
-        String msg = "";
-
-        try {
-            System.out.println("==========");
-          //  msg = employeeService.googleSignIn(jsonIdToken);
-
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return  msg;
-    }
 
     @PostMapping("/register")
-    public String registerEmployee(@RequestBody Employee employee, HttpServletRequest request, HttpServletResponse response){
-        String result="";
-        try{
-         //   result = employeeService.registerEmployee(employee);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return result;
+    public void registerEmployee(@RequestBody String googleToken, HttpServletRequest request, HttpServletResponse response){
+        log.debug("REST request to login : {}", googleToken);
+
+        System.out.println("==================================");
+        //employeeService.googleSignIn(googleToken);
+
+        employeeService.googleSignIn(googleToken);
     }
     /**
      * {@code GET  /activate} : activate the registered user.
@@ -209,5 +192,15 @@ public class AccountResource {
         return !StringUtils.isEmpty(password) &&
             password.length() >= ManagedUserVM.PASSWORD_MIN_LENGTH &&
             password.length() <= ManagedUserVM.PASSWORD_MAX_LENGTH;
+    }
+
+    @PostMapping("/user/login")
+    public String googleLogin(@RequestBody String googleToken) {
+        log.debug("REST request to login : {}", googleToken);
+
+        System.out.println("==================================");
+        //employeeService.googleSignIn(googleToken);
+
+        return employeeService.googleSignIn(googleToken);
     }
 }
