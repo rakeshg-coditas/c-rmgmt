@@ -1,5 +1,6 @@
 package com.coditas.web.rest;
 
+import com.coditas.exception.NameNotFoundException;
 import com.coditas.service.TeamMembersService;
 import com.coditas.service.dto.EmployeeDTO;
 import com.coditas.web.rest.errors.BadRequestAlertException;
@@ -124,7 +125,7 @@ public class TeamMembersResource {
     }
 
     @GetMapping("/team-members-data")
-    public Map<String,List<EmployeeDTO>> getAllLeadAndMembersData() {
+    public Map<String,List<EmployeeDTO>> getAllLeadAndMembersData() throws NameNotFoundException {
         log.debug("REST request to get all Lead And Members");
         return teamMembersService.getMasterLeadsAndMembersData();
     }

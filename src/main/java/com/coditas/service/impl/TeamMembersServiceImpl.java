@@ -1,7 +1,10 @@
 package com.coditas.service.impl;
 
+import com.coditas.constants.CrmsConstants;
+import com.coditas.domain.Employee;
 import com.coditas.domain.Role;
 import com.coditas.domain.TeamMembers;
+import com.coditas.exception.NameNotFoundException;
 import com.coditas.repository.EmployeeRepository;
 import com.coditas.repository.RoleRepository;
 import com.coditas.repository.TeamMembersRepository;
@@ -104,23 +107,44 @@ public class TeamMembersServiceImpl implements TeamMembersService {
     }
 
     @Override
-    public Map<String, List<EmployeeDTO>> getMasterLeadsAndMembersData() {
+    public Map<String, List<EmployeeDTO>> getMasterLeadsAndMembersData() throws NameNotFoundException {
         Map<String, List<EmployeeDTO>> masterDataMap = new HashMap<>();
-        Role role=new Role();
+
+        List<EmployeeDTO> leadList=new ArrayList<>();
+        List<EmployeeDTO> empList=new ArrayList<>();
+
+        List<String> empRoleList = new ArrayList<>();
+        empRoleList.add(CrmsConstants.Roles.CEO);
+        empRoleList.add(CrmsConstants.Roles.LEAD);
+
+        Role leadRole=new Role();
+        List<Role> empRoles=new ArrayList<>();
+
         String roleId= "";
-        role=roleRepository.findIdByNameAndIsDeleted("LEAD",false);
+        leadRole=roleRepository.findIdByNameInIgnoreCaseAndIsDeleted(CrmsConstants.Roles.LEAD,false);
 
-        if(role!=null && role.getName().equals("LEAD")){
-            roleId=role.getId();
+        if(leadRole!=null && leadRole.getName().equals(CrmsConstants.Roles.LEAD)){
+            roleId=leadRole.getId();
         }
 
-        List<EmployeeDTO> leadEmployees= employeeRepository.findIdByRole(roleId);
-        if(leadEmployees!=null && !leadEmployees.isEmpty()) {
-            masterDataMap.put("Leads", leadEmployees);
+        leadList= employeeRepository.findIdByRole(roleId);
+        if(leadList!=null && !leadList.isEmpty()) {
+            masterDataMap.put(CrmsConstants.Roles.Leads, leadList);
         }else{
-            //throws custom exception lead not found
+            throw new NameNotFoundException("Name is empty, lead not found exception!");
         }
 
+        empRoles=roleRepository.findIdByNameInIgnoreCaseNotIn(empRoleList);
+
+        if(empRoles!=null && !empRoles.isEmpty()) {
+            empList= employeeRepository.findIdByRoleIn(empRoles);
+        }
+
+        if(empList!=null && !empList.isEmpty()) {
+            masterDataMap.put(CrmsConstants.Roles.TEAM_MEMBERS, empList);
+        }else {
+            throw new NameNotFoundException("Name is empty, member not found exception!");
+        }
         return masterDataMap;
     }
 

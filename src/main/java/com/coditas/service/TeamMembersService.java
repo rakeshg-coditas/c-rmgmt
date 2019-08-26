@@ -1,5 +1,6 @@
 package com.coditas.service;
 
+import com.coditas.exception.NameNotFoundException;
 import com.coditas.service.dto.EmployeeDTO;
 import com.coditas.service.dto.TeamMembersDTO;
 
@@ -47,5 +48,5 @@ public interface TeamMembersService {
 
     List<TeamMembersDTO> getLeadDetails();
 
-    Map<String, List<EmployeeDTO>> getMasterLeadsAndMembersData();
+    Map<String, List<EmployeeDTO>> getMasterLeadsAndMembersData() throws NameNotFoundException;
 }

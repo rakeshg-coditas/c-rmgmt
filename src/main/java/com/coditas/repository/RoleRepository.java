@@ -1,6 +1,8 @@
 package com.coditas.repository;
 
+import com.coditas.domain.Employee;
 import com.coditas.domain.Role;
+import com.coditas.service.dto.EmployeeDTO;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
@@ -29,6 +31,9 @@ public interface RoleRepository extends MongoRepository<Role, String> {
     public List<Role> findIdAndNameAndByIsDeleted(boolean isDeleted);
 
     @Query(fields="{ id : 1 , name : 1 }")
-    public Role findIdByNameAndIsDeleted(String name, boolean isDeleted);
+    public Role findIdByNameInIgnoreCaseAndIsDeleted(String name, boolean isDeleted);
+
+    @Query(fields="{ id : 1 , name : 1 }")
+    public List<Role> findIdByNameInIgnoreCaseNotIn(List<String> emps);
 
 }
