@@ -44,9 +44,5 @@ public interface TeamMembersService {
      */
     void delete(String id);
 
-
-
-    List<TeamMembersDTO> getLeadDetails();
-
     Map<String, List<EmployeeDTO>> getMasterLeadsAndMembersData() throws NameNotFoundException;
 }

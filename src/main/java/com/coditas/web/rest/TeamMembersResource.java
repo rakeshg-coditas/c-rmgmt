@@ -90,11 +90,6 @@ public class TeamMembersResource {
     @GetMapping("/team-members")
     public List<TeamMembersDTO> getAllTeamMembers() {
         log.debug("REST request to get all TeamMembers");
-
-        List<TeamMembersDTO> teamList = teamMembersService.findAll();
-        teamMembersService.getLeadDetails();
-
-
         return teamMembersService.findAll();
     }
 

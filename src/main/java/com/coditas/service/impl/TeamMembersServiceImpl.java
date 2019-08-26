@@ -101,11 +101,6 @@ public class TeamMembersServiceImpl implements TeamMembersService {
         teamMembersRepository.deleteById(id);
     }
 
-    public List<TeamMembersDTO> getLeadDetails() {
-        //employeeService.getLeadDetails();
-        return null;
-    }
-
     @Override
     public Map<String, List<EmployeeDTO>> getMasterLeadsAndMembersData() throws NameNotFoundException {
         Map<String, List<EmployeeDTO>> masterDataMap = new HashMap<>();
