@@ -47,5 +47,5 @@ public interface TeamMembersService {
 
     List<TeamMembersDTO> getLeadDetails();
 
-    Map<String, List<EmployeeDTO>> getMasterLeadAndMembersData();
+    Map<String, List<EmployeeDTO>> getMasterLeadsAndMembersData();
 }

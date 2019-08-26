@@ -126,6 +126,6 @@ public class TeamMembersResource {
     @GetMapping("/team-members-data")
     public Map<String,List<EmployeeDTO>> getAllLeadAndMembersData() {
         log.debug("REST request to get all Lead And Members");
-        return teamMembersService.getMasterLeadAndMembersData();
+        return teamMembersService.getMasterLeadsAndMembersData();
     }
 }

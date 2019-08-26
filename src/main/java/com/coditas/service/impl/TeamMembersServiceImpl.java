@@ -1,18 +1,17 @@
 package com.coditas.service.impl;
 
 import com.coditas.domain.Role;
+import com.coditas.domain.TeamMembers;
 import com.coditas.repository.EmployeeRepository;
 import com.coditas.repository.RoleRepository;
+import com.coditas.repository.TeamMembersRepository;
 import com.coditas.service.EmployeeService;
 import com.coditas.service.TeamMembersService;
-import com.coditas.domain.TeamMembers;
-import com.coditas.repository.TeamMembersRepository;
 import com.coditas.service.dto.EmployeeDTO;
 import com.coditas.service.dto.TeamMembersDTO;
 import com.coditas.service.mapper.TeamMembersMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -105,20 +104,21 @@ public class TeamMembersServiceImpl implements TeamMembersService {
     }
 
     @Override
-    public Map<String, List<EmployeeDTO>> getMasterLeadAndMembersData() {
+    public Map<String, List<EmployeeDTO>> getMasterLeadsAndMembersData() {
         Map<String, List<EmployeeDTO>> masterDataMap = new HashMap<>();
-        List<Role> roleList=new ArrayList<>();
-        List<EmployeeDTO> leadList = new ArrayList<>();
+        Role role=new Role();
         String roleId= "";
-        roleList=roleRepository.findIdByNameAndIsDeleted("LEAD",false);
+        role=roleRepository.findIdByNameAndIsDeleted("LEAD",false);
 
-        if(roleList!=null && !roleList.isEmpty() && roleList.get(0).getName().equals("LEAD")){
-            roleId=roleList.get(0).getId();
+        if(role!=null && role.getName().equals("LEAD")){
+            roleId=role.getId();
         }
 
         List<EmployeeDTO> leadEmployees= employeeRepository.findIdByRole(roleId);
-        if(leadEmployees!=null) {
+        if(leadEmployees!=null && !leadEmployees.isEmpty()) {
             masterDataMap.put("Leads", leadEmployees);
+        }else{
+            //throws custom exception lead not found
         }
 
         return masterDataMap;
