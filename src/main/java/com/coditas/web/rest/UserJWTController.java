@@ -2,10 +2,12 @@ package com.coditas.web.rest;
 
 import com.coditas.security.jwt.JWTFilter;
 import com.coditas.security.jwt.TokenProvider;
+import com.coditas.service.EmployeeService;
 import com.coditas.web.rest.vm.LoginVM;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,9 @@ import javax.validation.Valid;
 @RequestMapping("/api")
 public class UserJWTController {
 
+    @Autowired
+    EmployeeService employeeService;
+
     private final TokenProvider tokenProvider;
 
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
@@ -34,15 +39,8 @@ public class UserJWTController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<JWTToken> authorize(@Valid @RequestBody LoginVM loginVM) {
-
-        UsernamePasswordAuthenticationToken authenticationToken =
-            new UsernamePasswordAuthenticationToken(loginVM.getUsername(), loginVM.getPassword());
-
-        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        boolean rememberMe = (loginVM.isRememberMe() == null) ? false : loginVM.isRememberMe();
-        String jwt = tokenProvider.createToken(authentication, rememberMe);
+    public ResponseEntity<JWTToken> authorize(@Valid @RequestBody String googleToken) {
+        String jwt = employeeService.googleSignIn(googleToken);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
         return new ResponseEntity<>(new JWTToken(jwt), httpHeaders, HttpStatus.OK);

@@ -1,15 +1,17 @@
 import axios from 'axios';
 
+const LOCALSTORAGE_AUTH_KEY = 'token';
+const HEADER_AUTH_KEY = 'token';
+
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8080/',
+  baseURL: 'http://localhost:8083/crmgmt',
   headers: {
     'Content-Type': 'application/json'
   }
 });
 export class LoginService {
   static async signInWithGoogle(payload) {
-    console.log();
-    const url = 'api/' + 'user/login'; // uncomment this if using java as backend
+    const url = 'api/authenticate';
     const response = await this.post(url, payload);
     const user = { ...response.employee, isLoggedIn: true };
   }
@@ -34,5 +36,11 @@ export class LoginService {
         })
         .catch(error => reject(error));
     });
+  }
+
+  saveToken(response) {
+    if (response.data && response.data[HEADER_AUTH_KEY]) {
+      localStorage.setItem(LOCALSTORAGE_AUTH_KEY, response.data[HEADER_AUTH_KEY]);
+    }
   }
 }

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
 import { LoginService } from './LoginService';
 import { Modal } from 'antd';
+import './login.scss';
 
 export interface ILoginModalProps {
   showModal: boolean;
@@ -25,13 +26,14 @@ class LoginModal extends React.Component<ILoginModalProps> {
 
   render() {
     return (
-      <div>
+      <div className="login-container">
         <GoogleLogin
           clientId="1078337195896-k13cklfcjl2i49mo3j8foglcjvrodh7n.apps.googleusercontent.com"
           buttonText="Sign In with Google"
           onSuccess={this.handleGoogleLogin}
           onFailure={this.handleFailure}
           hostedDomain="coditas.com"
+          // cookiePolicy={'single_host_origin'}
         />
       </div>
     );
