@@ -1,6 +1,7 @@
 package com.coditas.service.impl;
 
 import com.coditas.domain.Role;
+import com.coditas.repository.EmployeeRepository;
 import com.coditas.repository.RoleRepository;
 import com.coditas.service.EmployeeService;
 import com.coditas.service.TeamMembersService;
@@ -36,6 +37,9 @@ public class TeamMembersServiceImpl implements TeamMembersService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
 
     public TeamMembersServiceImpl(TeamMembersRepository teamMembersRepository, TeamMembersMapper teamMembersMapper) {
@@ -103,23 +107,19 @@ public class TeamMembersServiceImpl implements TeamMembersService {
     @Override
     public Map<String, List<EmployeeDTO>> getMasterLeadAndMembersData() {
         Map<String, List<EmployeeDTO>> masterDataMap = new HashMap<>();
-        List<Role> roleList;
+        List<Role> roleList=new ArrayList<>();
         List<EmployeeDTO> leadList = new ArrayList<>();
-        String roleName= "";
+        String roleId= "";
         roleList=roleRepository.findIdByNameAndIsDeleted("LEAD",false);
 
         if(roleList!=null && !roleList.isEmpty() && roleList.get(0).getName().equals("LEAD")){
-            roleName=roleList.get(0).getId();
+            roleId=roleList.get(0).getId();
         }
 
-        List<EmployeeDTO> employeeDTOS= employeeService.findAll();
-
-        for (EmployeeDTO employeeDTO:employeeDTOS){
-            if(employeeDTO.getRole()!=null && employeeDTO.getRole().equals(roleName)){
-                leadList.add(employeeDTO);
-            }
+        List<EmployeeDTO> leadEmployees= employeeRepository.findIdByRole(roleId);
+        if(leadEmployees!=null) {
+            masterDataMap.put("Leads", leadEmployees);
         }
-        masterDataMap.put("Leads",leadList);
 
         return masterDataMap;
     }
