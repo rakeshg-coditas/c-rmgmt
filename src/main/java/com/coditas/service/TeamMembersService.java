@@ -1,5 +1,6 @@
 package com.coditas.service;
 
+import com.coditas.service.dto.EmployeeDTO;
 import com.coditas.service.dto.TeamMembersDTO;
 
 import java.util.List;
@@ -46,5 +47,5 @@ public interface TeamMembersService {
 
     List<TeamMembersDTO> getLeadDetails();
 
-    Map<String, List<Object>> getMasterLeadAndMembersData();
+    Map<String, List<EmployeeDTO>> getMasterLeadAndMembersData();
 }

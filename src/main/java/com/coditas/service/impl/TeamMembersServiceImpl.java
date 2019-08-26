@@ -101,26 +101,21 @@ public class TeamMembersServiceImpl implements TeamMembersService {
     }
 
     @Override
-    public Map<String, List<Object>> getMasterLeadAndMembersData() {
-        Map<String, List<Object>> masterDataMap = new HashMap<>();
-        List<Object> roleList;
-        List<Object> leadList = null;
-        Role roleName=new Role();
+    public Map<String, List<EmployeeDTO>> getMasterLeadAndMembersData() {
+        Map<String, List<EmployeeDTO>> masterDataMap = new HashMap<>();
+        List<Role> roleList;
+        List<EmployeeDTO> leadList = new ArrayList<>();
+        String roleName= "";
         roleList=roleRepository.findIdByNameAndIsDeleted("LEAD",false);
-        //System.out.println(">>>>"+roleList);
-        for (Object obj:roleList){
-            Role role=(Role)obj;
-            if(role != null && role.getName().equals("LEAD")){
-                roleName=role;
-                break;
-            }
+
+        if(roleList!=null && !roleList.isEmpty() && roleList.get(0).getName().equals("LEAD")){
+            roleName=roleList.get(0).getId();
         }
 
         List<EmployeeDTO> employeeDTOS= employeeService.findAll();
 
         for (EmployeeDTO employeeDTO:employeeDTOS){
-            if(employeeDTO.getRole()!=null && employeeDTO.getRole().equals(roleName.getId())){
-                //System.out.println(">>>>employeeDTO"+employeeDTO);
+            if(employeeDTO.getRole()!=null && employeeDTO.getRole().equals(roleName)){
                 leadList.add(employeeDTO);
             }
         }

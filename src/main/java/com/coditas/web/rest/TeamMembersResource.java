@@ -1,6 +1,7 @@
 package com.coditas.web.rest;
 
 import com.coditas.service.TeamMembersService;
+import com.coditas.service.dto.EmployeeDTO;
 import com.coditas.web.rest.errors.BadRequestAlertException;
 import com.coditas.service.dto.TeamMembersDTO;
 
@@ -123,7 +124,7 @@ public class TeamMembersResource {
     }
 
     @GetMapping("/team-members-data")
-    public Map<String,List<Object>> getAllLeadAndMembersData() {
+    public Map<String,List<EmployeeDTO>> getAllLeadAndMembersData() {
         log.debug("REST request to get all Lead And Members");
         return teamMembersService.getMasterLeadAndMembersData();
     }
