@@ -121,7 +121,7 @@ public class TeamMembersServiceImpl implements TeamMembersService {
             roleId=leadRole.getId();
         }
 
-        leadList= employeeRepository.findIdByRole(roleId);
+        leadList= employeeRepository.findAllByRole(roleId);
         if(leadList!=null && !leadList.isEmpty()) {
             masterDataMap.put(CrmsConstants.Roles.Leads, leadList);
         }/*else{
@@ -131,7 +131,7 @@ public class TeamMembersServiceImpl implements TeamMembersService {
         empRoles=roleRepository.findIdByNameNotIn(empRoleList);
 
         if(empRoles!=null && !empRoles.isEmpty()) {
-            empList= employeeRepository.findIdByRoleIn(empRoles);
+            empList= employeeRepository.findAllByRoleIn(empRoles);
         }
 
         if(empList!=null && !empList.isEmpty()) {

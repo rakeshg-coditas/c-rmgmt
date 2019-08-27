@@ -17,9 +17,9 @@ import java.util.List;
 @Repository
 public interface EmployeeRepository extends MongoRepository<Employee, String> {
     @Query(fields="{ id : 1 , name : 1 }")
-    public List<EmployeeDTO> findIdByRole(String role);
+    public List<EmployeeDTO> findAllByRole(Object role);
 
     @Query(fields="{ id : 1 , name : 1 }")
-    public List<EmployeeDTO> findIdByRoleIn(List<Role> roles);
+    public List<EmployeeDTO> findAllByRoleIn(List<Role> roles);
 
 }

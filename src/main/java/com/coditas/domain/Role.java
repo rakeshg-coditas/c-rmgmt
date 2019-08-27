@@ -1,4 +1,5 @@
 package com.coditas.domain;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -38,6 +39,10 @@ public class Role implements Serializable {
     public Role name(String name) {
         this.name = name;
         return this;
+    }
+
+    public Object getObjectId(String id){
+        return new ObjectId(id);
     }
 
     public void setName(String name) {
