@@ -55,6 +55,9 @@ public class EmployeeResource {
         if (employeeDTO.getId() != null) {
             throw new BadRequestAlertException("A new employee cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        else if(employeeDTO.getEmail() == null || employeeDTO.getEmail().isEmpty()){
+            throw new BadRequestAlertException("A new employee must have an email id", ENTITY_NAME, "emailunavailable");
+        }
         EmployeeDTO result = employeeService.save(employeeDTO);
         return ResponseEntity.created(new URI("/api/employees/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
@@ -75,6 +78,9 @@ public class EmployeeResource {
         log.debug("REST request to update Employee : {}", employeeDTO);
         if (employeeDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        else if(employeeDTO.getEmail() == null || employeeDTO.getEmail().isEmpty()){
+            throw new BadRequestAlertException("A new employee must have an email id", ENTITY_NAME, "emailunavailable");
         }
         EmployeeDTO result = employeeService.save(employeeDTO);
         return ResponseEntity.ok()
@@ -97,9 +103,6 @@ public class EmployeeResource {
     @GetMapping("/employeesData")
     public Map<String,List<Object>> getEmployeesMasterData() {
         log.debug("REST request to get all Employees");
-
-
-
         return employeeService.getMasterData();
     }
 
@@ -129,7 +132,7 @@ public class EmployeeResource {
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
     }
 
-    @PostMapping("/user/googlelogin")
+   /* @PostMapping("/user/googlelogin")
     public String googleLogin(@RequestBody String googleToken) {
         log.debug("REST request to login : {}", googleToken);
 
@@ -137,10 +140,5 @@ public class EmployeeResource {
         //employeeService.googleSignIn(googleToken);
 
         return employeeService.googleSignIn(googleToken);
-    }
-
-
-
-
-
+    }*/
 }

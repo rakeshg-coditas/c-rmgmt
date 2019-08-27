@@ -16,6 +16,12 @@ export class LoginService {
     const user = { ...response.employee, isLoggedIn: true };
   }
 
+  saveToken(response) {
+    if (response.data && response.data[HEADER_AUTH_KEY]) {
+      localStorage.setItem(LOCALSTORAGE_AUTH_KEY, response.data[HEADER_AUTH_KEY]);
+    }
+  }
+
   static post(url, body): any {
     return new Promise((resolve, reject) => {
       axiosInstance.interceptors.request.use(config => {
@@ -38,9 +44,18 @@ export class LoginService {
     });
   }
 
-  saveToken(response) {
-    if (response.data && response.data[HEADER_AUTH_KEY]) {
-      localStorage.setItem(LOCALSTORAGE_AUTH_KEY, response.data[HEADER_AUTH_KEY]);
-    }
+  static get(url, params = null): Promise<any> {
+    return new Promise((resolve, reject) => {
+      axiosInstance.interceptors.request.use(config => {
+        config.headers[HEADER_AUTH_KEY] = localStorage.getItem(LOCALSTORAGE_AUTH_KEY) || '';
+        return config;
+      });
+      axiosInstance
+        .get(url, { params: params })
+        .then(response => {
+          resolve(response.data);
+        })
+        .catch(error => reject(error));
+    });
   }
 }
