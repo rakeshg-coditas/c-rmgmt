@@ -1,11 +1,9 @@
 package com.coditas.web.rest;
 
-import com.coditas.domain.Employee;
 import com.coditas.service.EmployeeService;
 import com.coditas.web.rest.errors.BadRequestAlertException;
 import com.coditas.service.dto.EmployeeDTO;
 
-import com.mongodb.DBCollection;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;

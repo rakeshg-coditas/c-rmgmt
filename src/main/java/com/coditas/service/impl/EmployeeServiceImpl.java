@@ -1,7 +1,6 @@
 package com.coditas.service.impl;
 
 import com.coditas.constants.CrmsConstants;
-import com.coditas.domain.Skills;
 import com.coditas.errors.ValidatorInterface;
 import com.coditas.errors.ValidatorInterfaceImpl;
 import com.coditas.repository.*;
@@ -9,7 +8,6 @@ import com.coditas.security.jwt.TokenProvider;
 import com.coditas.service.EmployeeService;
 import com.coditas.domain.Employee;
 import com.coditas.service.dto.EmployeeDTO;
-import com.coditas.service.dto.SkillsDTO;
 import com.coditas.service.mapper.EmployeeMapper;
 import com.coditas.service.mapper.RoleMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,7 +17,6 @@ import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
-import io.github.jhipster.config.JHipsterProperties;
 import org.bson.types.ObjectId;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -30,7 +27,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

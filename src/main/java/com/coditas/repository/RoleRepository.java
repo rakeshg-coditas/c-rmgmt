@@ -34,6 +34,6 @@ public interface RoleRepository extends MongoRepository<Role, String> {
     public Role findIdByNameInIgnoreCaseAndIsDeleted(String name, boolean isDeleted);
 
     @Query(fields="{ id : 1 , name : 1 }")
-    public List<Role> findIdByNameInIgnoreCaseNotIn(List<String> emps);
+    public List<Role> findIdByNameNotIn(List<String> emps);
 
 }

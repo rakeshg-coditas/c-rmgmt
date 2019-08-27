@@ -1,7 +1,6 @@
 package com.coditas.service.impl;
 
 import com.coditas.constants.CrmsConstants;
-import com.coditas.domain.Employee;
 import com.coditas.domain.Role;
 import com.coditas.domain.TeamMembers;
 import com.coditas.exception.NameNotFoundException;
@@ -125,11 +124,11 @@ public class TeamMembersServiceImpl implements TeamMembersService {
         leadList= employeeRepository.findIdByRole(roleId);
         if(leadList!=null && !leadList.isEmpty()) {
             masterDataMap.put(CrmsConstants.Roles.Leads, leadList);
-        }else{
+        }/*else{
             throw new NameNotFoundException("Name is empty, lead not found exception!");
-        }
+        }*/
 
-        empRoles=roleRepository.findIdByNameInIgnoreCaseNotIn(empRoleList);
+        empRoles=roleRepository.findIdByNameNotIn(empRoleList);
 
         if(empRoles!=null && !empRoles.isEmpty()) {
             empList= employeeRepository.findIdByRoleIn(empRoles);
@@ -137,9 +136,9 @@ public class TeamMembersServiceImpl implements TeamMembersService {
 
         if(empList!=null && !empList.isEmpty()) {
             masterDataMap.put(CrmsConstants.Roles.TEAM_MEMBERS, empList);
-        }else {
+        }/*else {
             throw new NameNotFoundException("Name is empty, member not found exception!");
-        }
+        }*/
         return masterDataMap;
     }
 
