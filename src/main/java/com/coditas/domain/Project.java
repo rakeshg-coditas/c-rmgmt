@@ -55,6 +55,9 @@ public class Project implements Serializable {
         return name;
     }
 
+    public Project() {
+    }
+
     public Project name(String name) {
         this.name = name;
         return this;
