@@ -8,6 +8,7 @@ import com.coditas.security.jwt.TokenProvider;
 import com.coditas.service.EmployeeService;
 import com.coditas.domain.Employee;
 import com.coditas.service.dto.EmployeeDTO;
+import com.coditas.service.dto.TeamMembersDTO;
 import com.coditas.service.mapper.EmployeeMapper;
 import com.coditas.service.mapper.RoleMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -281,5 +282,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
         return masterDataMap;
+    }
+
+
+    @Override
+    public List<EmployeeDTO> findAllTeamMembers(String teamId) {
+        log.debug("Request to get all Employee");
+        Query query=new Query();
+        query.addCriteria(Criteria.where("team").is(teamId));
+        query.fields().include("name").include("id");
+        List<Employee> employeesList = mongoTemplate.find(query, Employee.class);
+        return employeeMapper.toDto(employeesList);
     }
 }

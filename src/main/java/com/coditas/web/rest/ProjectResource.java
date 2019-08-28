@@ -1,7 +1,9 @@
 package com.coditas.web.rest;
 
+import com.coditas.service.EmployeeService;
 import com.coditas.service.ProjectService;
 import com.coditas.service.TeamMembersService;
+import com.coditas.service.dto.EmployeeDTO;
 import com.coditas.service.dto.TeamMembersDTO;
 import com.coditas.web.rest.errors.BadRequestAlertException;
 import com.coditas.service.dto.ProjectDTO;
@@ -39,6 +41,9 @@ public class ProjectResource {
 
     @Autowired
     private TeamMembersService teamMembersService;
+
+    @Autowired
+    private EmployeeService employeeService;
 
     public ProjectResource(ProjectService projectService) {
         this.projectService = projectService;
@@ -132,5 +137,17 @@ public class ProjectResource {
     public List<TeamMembersDTO> getAllTeams() {
         log.debug("REST request to get all Projects");
         return teamMembersService.findAllName();
+    }
+
+    /**
+     * {@code GET  /projects} : get all the projects.
+     *
+
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of projects in body.
+     */
+    @GetMapping("/projects/teams/members/{teamId}")
+    public List<EmployeeDTO> getAllMembers(@PathVariable String teamId) {
+        log.debug("REST request to get all team members",teamId);
+        return employeeService.findAllTeamMembers(teamId);
     }
 }

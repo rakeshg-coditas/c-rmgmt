@@ -1,6 +1,7 @@
 package com.coditas.service.impl;
 
 import com.coditas.constants.CrmsConstants;
+import com.coditas.domain.Employee;
 import com.coditas.domain.Role;
 import com.coditas.domain.TeamMembers;
 import com.coditas.exception.NameNotFoundException;
@@ -16,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 

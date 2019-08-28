@@ -2,6 +2,7 @@ package com.coditas.service;
 
 import com.coditas.domain.Employee;
 import com.coditas.service.dto.EmployeeDTO;
+import com.coditas.service.dto.TeamMembersDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,4 +49,6 @@ public interface EmployeeService {
     String googleSignIn(String token);
 
     Map<String,List<Object>> getMasterData();
+
+    List<EmployeeDTO> findAllTeamMembers(String teamId);
 }
