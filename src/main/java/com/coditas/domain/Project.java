@@ -112,6 +112,10 @@ public class Project implements Serializable {
         return this;
     }
 
+    public Project(String[] technologies) {
+        this.technologies = technologies;
+    }
+
     public String[] getTechnologies() {
         return technologies;
     }
@@ -183,5 +187,4 @@ public class Project implements Serializable {
             ", end_date=" + end_date +
             '}';
     }
-
 }
