@@ -48,4 +48,6 @@ public interface EmployeeService {
     String googleSignIn(String token);
 
     Map<String,List<Object>> getMasterData();
+
+    Optional<List<EmployeeDTO>> getBillableEmployees(String id);
 }

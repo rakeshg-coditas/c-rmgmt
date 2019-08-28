@@ -1,16 +1,17 @@
 package com.coditas.web.rest;
 
 import com.coditas.domain.Employee;
+import com.coditas.repository.SkillsRepository;
 import com.coditas.service.EmployeeService;
 import com.coditas.web.rest.errors.BadRequestAlertException;
 import com.coditas.service.dto.EmployeeDTO;
-
-import com.mongodb.DBCollection;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +35,9 @@ public class EmployeeResource {
     private String applicationName;
 
     private final EmployeeService employeeService;
+
+    @Autowired
+    SkillsRepository skillsRepository;
 
     public EmployeeResource(EmployeeService employeeService) {
         this.employeeService = employeeService;
@@ -130,6 +134,31 @@ public class EmployeeResource {
         log.debug("REST request to delete Employee : {}", id);
         employeeService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
+    }
+
+    @GetMapping("/billable-non-billeable/{id}")
+    public Optional<List<EmployeeDTO>> getBillableEmployees(@PathVariable String id){
+        log.debug("get employee list based on billable or non billable : {}",id);
+        Optional<List<EmployeeDTO>> dtoList = employeeService.getBillableEmployees(id);
+        Map<String,String> skillsMap = new HashMap<>();
+        dtoList.ifPresent(employeeDTO -> {
+            employeeDTO.forEach(employee ->{
+                if(employee.getSkills()!=null) {
+                    String[] skillArray = new String[employee.getSkills().length];
+                    int skillArrayIndx = 0;
+                    for (String skill : employee.getSkills()) {
+                        if (skillsMap.containsKey(skill)) {
+                            skillArray[skillArrayIndx++] = skillsMap.get(skill);
+                        } else {
+                            skillsMap.put(skill, skillsRepository.findById(skill).get().getName());
+                            skillArray[skillArrayIndx++] = skillsMap.get(skill);
+                        }
+                        employee.setSkills(skillArray);
+                    }
+                }
+            });
+        });
+        return dtoList;
     }
 
    /* @PostMapping("/user/googlelogin")
