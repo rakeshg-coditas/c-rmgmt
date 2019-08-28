@@ -21,5 +21,4 @@ public interface EmployeeRepository extends MongoRepository<Employee, String> {
 
     @Query(fields="{ id : 1 , name : 1 }")
     public List<EmployeeDTO> findAllByRoleIn(List<Role> roles);
-
 }

@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Arrays;
 
 /**
  * A Project.
@@ -32,8 +33,8 @@ public class Project implements Serializable {
     @Field("lead")
     private String lead;
 
-    @Field("skills")
-    private String skills;
+    @Field("technologies")
+    private String[] technologies;
 
     @Field("start_date")
     private LocalDate start_date;
@@ -111,21 +112,16 @@ public class Project implements Serializable {
         return this;
     }
 
+    public String[] getTechnologies() {
+        return technologies;
+    }
+
+    public void setTechnologies(String[] technologies) {
+        this.technologies = technologies;
+    }
+
     public void setLead(String lead) {
         this.lead = lead;
-    }
-
-    public String getSkills() {
-        return skills;
-    }
-
-    public Project skills(String skills) {
-        this.skills = skills;
-        return this;
-    }
-
-    public void setSkills(String skills) {
-        this.skills = skills;
     }
 
     public LocalDate getStart_date() {
@@ -155,6 +151,7 @@ public class Project implements Serializable {
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -171,18 +168,20 @@ public class Project implements Serializable {
         return 31;
     }
 
+
     @Override
     public String toString() {
         return "Project{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", client='" + getClient() + "'" +
-            ", billing_type='" + getBilling_type() + "'" +
-            ", team='" + getTeam() + "'" +
-            ", lead='" + getLead() + "'" +
-            ", skills='" + getSkills() + "'" +
-            ", start_date='" + getStart_date() + "'" +
-            ", end_date='" + getEnd_date() + "'" +
-            "}";
+            "id='" + id + '\'' +
+            ", name='" + name + '\'' +
+            ", client='" + client + '\'' +
+            ", billing_type='" + billing_type + '\'' +
+            ", team='" + team + '\'' +
+            ", lead='" + lead + '\'' +
+            ", technologies=" + Arrays.toString(technologies) +
+            ", start_date=" + start_date +
+            ", end_date=" + end_date +
+            '}';
     }
+
 }

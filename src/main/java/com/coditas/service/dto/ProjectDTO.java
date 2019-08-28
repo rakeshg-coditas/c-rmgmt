@@ -1,6 +1,8 @@
 package com.coditas.service.dto;
+
 import java.time.LocalDate;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -20,7 +22,7 @@ public class ProjectDTO implements Serializable {
 
     private String lead;
 
-    private String skills;
+    private String[] technologies;
 
     private LocalDate start_date;
 
@@ -75,12 +77,12 @@ public class ProjectDTO implements Serializable {
         this.lead = lead;
     }
 
-    public String getSkills() {
-        return skills;
+    public String[] getTechnologies() {
+        return technologies;
     }
 
-    public void setSkills(String skills) {
-        this.skills = skills;
+    public void setTechnologies(String[] technologies) {
+        this.technologies = technologies;
     }
 
     public LocalDate getStart_date() {
@@ -123,15 +125,15 @@ public class ProjectDTO implements Serializable {
     @Override
     public String toString() {
         return "ProjectDTO{" +
-            "id=" + getId() +
-            ", name='" + getName() + "'" +
-            ", client='" + getClient() + "'" +
-            ", billing_type='" + getBilling_type() + "'" +
-            ", team='" + getTeam() + "'" +
-            ", lead='" + getLead() + "'" +
-            ", skills='" + getSkills() + "'" +
-            ", start_date='" + getStart_date() + "'" +
-            ", end_date='" + getEnd_date() + "'" +
-            "}";
+            "id='" + id + '\'' +
+            ", name='" + name + '\'' +
+            ", client='" + client + '\'' +
+            ", billing_type='" + billing_type + '\'' +
+            ", team='" + team + '\'' +
+            ", lead='" + lead + '\'' +
+            ", technologies=" + Arrays.toString(technologies) +
+            ", start_date=" + start_date +
+            ", end_date=" + end_date +
+            '}';
     }
 }
