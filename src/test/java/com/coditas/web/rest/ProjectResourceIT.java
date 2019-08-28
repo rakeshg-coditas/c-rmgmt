@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Integration tests for the {@link ProjectResource} REST controller.
  */
 @SpringBootTest(classes = CRmgmtApp.class)
-public class ProjectResourceIT {
+public class ProjectResourceIT {/*
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
@@ -100,12 +100,12 @@ public class ProjectResourceIT {
             .setValidator(validator).build();
     }
 
-    /**
+    *//**
      * Create an entity for this test.
      *
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
-     */
+     *//*
     public static Project createEntity() {
         Project project = new Project()
             .name(DEFAULT_NAME)
@@ -118,12 +118,12 @@ public class ProjectResourceIT {
             .end_date(DEFAULT_END_DATE);
         return project;
     }
-    /**
+    *//**
      * Create an updated entity for this test.
      *
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
-     */
+     *//*
     public static Project createUpdatedEntity() {
         Project project = new Project()
             .name(UPDATED_NAME)
@@ -207,7 +207,7 @@ public class ProjectResourceIT {
             .andExpect(jsonPath("$.[*].start_date").value(hasItem(DEFAULT_START_DATE.toString())))
             .andExpect(jsonPath("$.[*].end_date").value(hasItem(DEFAULT_END_DATE.toString())));
     }
-    
+
     @Test
     public void getProject() throws Exception {
         // Initialize the database
@@ -337,4 +337,4 @@ public class ProjectResourceIT {
         projectDTO1.setId(null);
         assertThat(projectDTO1).isNotEqualTo(projectDTO2);
     }
-}
+*/}
