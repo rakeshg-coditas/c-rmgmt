@@ -23,6 +23,10 @@ import employee, {
 import role, {
   RoleState
 } from 'app/entities/role/role.reducer';
+// prettier-ignore
+import client, {
+  ClientState
+} from 'app/entities/client/client.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -38,6 +42,7 @@ export interface IRootState {
   readonly teamMembers: TeamMembersState;
   readonly employee: EmployeeState;
   readonly role: RoleState;
+  readonly client: ClientState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -55,6 +60,7 @@ const rootReducer = combineReducers<IRootState>({
   teamMembers,
   employee,
   role,
+  client,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });
