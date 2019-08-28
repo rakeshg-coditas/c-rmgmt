@@ -15,6 +15,8 @@ import com.coditas.service.mapper.TeamMembersMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -41,6 +43,9 @@ public class TeamMembersServiceImpl implements TeamMembersService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
 
     public TeamMembersServiceImpl(TeamMembersRepository teamMembersRepository, TeamMembersMapper teamMembersMapper) {
@@ -142,4 +147,12 @@ public class TeamMembersServiceImpl implements TeamMembersService {
         return masterDataMap;
     }
 
+    @Override
+    public List<TeamMembersDTO> findAllName() {
+        log.debug("Request to get all TeamMembers");
+        Query query=new Query();
+        query.fields().include("name").include("id");
+        List<TeamMembers> teamMembersList = mongoTemplate.find(query, TeamMembers.class);
+        return teamMembersMapper.toDto(teamMembersList);
+    }
 }

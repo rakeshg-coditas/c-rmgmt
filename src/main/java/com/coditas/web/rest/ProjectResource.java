@@ -1,6 +1,8 @@
 package com.coditas.web.rest;
 
 import com.coditas.service.ProjectService;
+import com.coditas.service.TeamMembersService;
+import com.coditas.service.dto.TeamMembersDTO;
 import com.coditas.web.rest.errors.BadRequestAlertException;
 import com.coditas.service.dto.ProjectDTO;
 
@@ -8,6 +10,7 @@ import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +36,9 @@ public class ProjectResource {
     private String applicationName;
 
     private final ProjectService projectService;
+
+    @Autowired
+    private TeamMembersService teamMembersService;
 
     public ProjectResource(ProjectService projectService) {
         this.projectService = projectService;
@@ -114,5 +120,17 @@ public class ProjectResource {
         log.debug("REST request to delete Project : {}", id);
         projectService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
+    }
+
+    /**
+     * {@code GET  /projects} : get all the projects.
+     *
+
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of projects in body.
+     */
+    @GetMapping("/projects/teams")
+    public List<TeamMembersDTO> getAllTeams() {
+        log.debug("REST request to get all Projects");
+        return teamMembersService.findAllName();
     }
 }
