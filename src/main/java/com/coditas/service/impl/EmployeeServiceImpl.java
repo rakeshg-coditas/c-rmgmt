@@ -1,8 +1,8 @@
 package com.coditas.service.impl;
 
 import com.coditas.constants.CrmsConstants;
-import com.coditas.errors.ValidatorInterface;
-import com.coditas.errors.ValidatorInterfaceImpl;
+import com.coditas.web.rest.ValidatorInterface;
+import com.coditas.web.rest.ValidatorInterfaceImpl;
 import com.coditas.repository.*;
 import com.coditas.security.jwt.TokenProvider;
 import com.coditas.service.EmployeeService;
@@ -27,7 +27,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -207,9 +206,9 @@ public class EmployeeServiceImpl implements EmployeeService {
             String employeeDesignation ;
             String role;
 
-            errorMsg = validatorInterface.checkNullOrEmptyValue(BeanUtils.getPropertyDescriptor(Employee.class,"role").getReadMethod());
-            errorMsg = validatorInterface.checkNullOrEmptyValue(BeanUtils.getPropertyDescriptor(Employee.class,"skills").getReadMethod());
-            errorMsg = validatorInterface.checkNullOrEmptyValue(BeanUtils.getPropertyDescriptor(Employee.class,"email").getReadMethod());
+            errorMsg = validatorInterface.checkNullOrEmptyValue("role");
+            errorMsg = validatorInterface.checkNullOrEmptyValue("skills");
+            errorMsg = validatorInterface.checkNullOrEmptyValue("email");
 
             if(!errorMsg.trim().equals(""))
                 return errorMsg;

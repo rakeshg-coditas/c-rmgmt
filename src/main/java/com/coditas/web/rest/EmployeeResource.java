@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +38,9 @@ public class EmployeeResource {
     @Autowired
     SkillsRepository skillsRepository;
 
+    @Autowired
+    ValidatorInterface validatorInterface;
+
     public EmployeeResource(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
@@ -62,6 +64,9 @@ public class EmployeeResource {
         else if(employeeDTO.getEmail() == null || employeeDTO.getEmail().isEmpty()){
             throw new BadRequestAlertException("A new employee must have an email id", ENTITY_NAME, "emailunavailable");
         }
+
+        validateEmployee(employeeDTO);
+
         EmployeeDTO result = employeeService.save(employeeDTO);
         return ResponseEntity.created(new URI("/api/employees/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
@@ -86,6 +91,7 @@ public class EmployeeResource {
         else if(employeeDTO.getEmail() == null || employeeDTO.getEmail().isEmpty()){
             throw new BadRequestAlertException("A new employee must have an email id", ENTITY_NAME, "emailunavailable");
         }
+        validateEmployee(employeeDTO);
         EmployeeDTO result = employeeService.save(employeeDTO);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, employeeDTO.getId().toString()))
@@ -159,6 +165,17 @@ public class EmployeeResource {
             });
         });
         return dtoList;
+    }
+
+    public ResponseEntity<EmployeeDTO> validateEmployee(EmployeeDTO employeeDTO) {
+        validatorInterface.validate(employeeDTO);
+        String errorMsg = "";
+            errorMsg = validatorInterface.checkNullOrEmptyValue("email");
+            errorMsg = errorMsg+validatorInterface.checkNullOrEmptyValue( "name");
+            errorMsg = errorMsg+validatorInterface.checkNullOrEmptyValue("report_to");
+            if(!errorMsg.trim().isEmpty())
+                throw new BadRequestAlertException(errorMsg,ENTITY_NAME,"requiredFields");
+        return null;
     }
 
    /* @PostMapping("/user/googlelogin")

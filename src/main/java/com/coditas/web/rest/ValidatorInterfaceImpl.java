@@ -1,13 +1,22 @@
-package com.coditas.errors;
+package com.coditas.web.rest;
 
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 
+/**
+ * @author rakesh.ghonmode
+ */
+@Component
 public class ValidatorInterfaceImpl implements ValidatorInterface {
 
-    //private Class myClass ;
+
     private Object myClassObject;
     private String className ;
+
+    public ValidatorInterfaceImpl(){}
 
     @Override
     public void validate(Object classObject)  {
@@ -15,23 +24,20 @@ public class ValidatorInterfaceImpl implements ValidatorInterface {
         try {
             className = classObject.getClass().getName();
             myClassObject = classObject;
-
-            System.out.println("======="+className);
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
     @Override
-    public String checkNullOrEmptyValue(Method getterMethodName) {
-
+    public String checkNullOrEmptyValue(String field) {
         String message = "";
             if(className!=null || !className.trim().equals("")){
                 try {
-                    Class cl =(Class.forName(className));
+                    Method getterMethodName = BeanUtils.getPropertyDescriptor(myClassObject.getClass(),field).getReadMethod();
                     String value = (String)getterMethodName.invoke(myClassObject);
                     if(value == null || value.toString().trim().isEmpty()){
-                        message = getterMethodName.getName()+" is Required";
+                        message = field+" is Required.";
                     }
                 }catch (Exception e){
 
