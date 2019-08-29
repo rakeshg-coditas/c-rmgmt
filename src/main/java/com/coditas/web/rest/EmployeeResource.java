@@ -1,10 +1,10 @@
 package com.coditas.web.rest;
 
-import com.coditas.domain.Employee;
 import com.coditas.repository.SkillsRepository;
 import com.coditas.service.EmployeeService;
 import com.coditas.web.rest.errors.BadRequestAlertException;
 import com.coditas.service.dto.EmployeeDTO;
+import com.coditas.web.rest.validations.ValidatorInterface;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
@@ -173,6 +173,7 @@ public class EmployeeResource {
             errorMsg = validatorInterface.checkNullOrEmptyValue("email");
             errorMsg = errorMsg+validatorInterface.checkNullOrEmptyValue( "name");
             errorMsg = errorMsg+validatorInterface.checkNullOrEmptyValue("report_to");
+            errorMsg = errorMsg+validatorInterface.checkIfValidInteger("employeeId");
             if(!errorMsg.trim().isEmpty())
                 throw new BadRequestAlertException(errorMsg,ENTITY_NAME,"requiredFields");
         return null;

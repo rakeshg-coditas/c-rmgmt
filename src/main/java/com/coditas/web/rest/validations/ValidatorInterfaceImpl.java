@@ -1,4 +1,4 @@
-package com.coditas.web.rest;
+package com.coditas.web.rest.validations;
 
 
 import org.springframework.beans.BeanUtils;
@@ -40,9 +40,28 @@ public class ValidatorInterfaceImpl implements ValidatorInterface {
                         message = field+" is Required.";
                     }
                 }catch (Exception e){
-
+                    message = e.getMessage();
                 }
             }
+        return message;
+    }
+
+    @Override
+    public String checkIfValidInteger(String field){
+        String message = "";
+        if(className!=null || !className.trim().equals("")){
+            try {
+                Method getterMethodName = BeanUtils.getPropertyDescriptor(myClassObject.getClass(), field).getReadMethod();
+                String value = (String) getterMethodName.invoke(myClassObject);  //illegal access expetion , Invocation target exception
+                try {
+                    Integer.valueOf(value);
+                } catch (NumberFormatException numberFormatException) {
+                    message = field + " should be a number.";
+                }
+            }catch(Exception e){
+                message = e.getMessage();
+            }
+        }
         return message;
     }
 

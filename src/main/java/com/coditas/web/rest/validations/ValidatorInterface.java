@@ -1,4 +1,4 @@
-package com.coditas.web.rest;
+package com.coditas.web.rest.validations;
 
 import org.springframework.stereotype.Component;
 
@@ -14,5 +14,6 @@ public interface ValidatorInterface {
 
     String checkNullOrEmptyValue(String field);
 
+    String checkIfValidInteger(String field);
 
 }

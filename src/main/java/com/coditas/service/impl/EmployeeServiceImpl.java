@@ -1,8 +1,8 @@
 package com.coditas.service.impl;
 
 import com.coditas.constants.CrmsConstants;
-import com.coditas.web.rest.ValidatorInterface;
-import com.coditas.web.rest.ValidatorInterfaceImpl;
+import com.coditas.web.rest.validations.ValidatorInterface;
+import com.coditas.web.rest.validations.ValidatorInterfaceImpl;
 import com.coditas.repository.*;
 import com.coditas.security.jwt.TokenProvider;
 import com.coditas.service.EmployeeService;
@@ -22,7 +22,6 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
