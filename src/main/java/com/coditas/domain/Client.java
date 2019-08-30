@@ -16,12 +16,9 @@ import java.util.Date;
  * A Client.
  */
 @Document(collection = "client")
-public class Client implements Persistable<String> {
+public class Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    @Version
-    private Long version;
 
     @Id
     private String id;
@@ -41,14 +38,6 @@ public class Client implements Persistable<String> {
 
     @Field("is_active")
     private Boolean isActive;
-
-    @CreatedDate
-    private Date createdDate;
-
-    @LastModifiedDate
-    private Date lastModifiedDate;
-
-    private boolean persisted;
 
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
@@ -127,15 +116,6 @@ public class Client implements Persistable<String> {
     @Override
     public int hashCode() {
         return 31;
-    }
-
-    public void setPersisted(boolean persisted) {
-        this.persisted = persisted;
-    }
-
-    @Override
-    public boolean isNew() {
-        return !persisted;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.coditas.repository;
 
 import com.coditas.domain.Role;
+import org.javers.spring.annotation.JaversSpringDataAuditable;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
@@ -13,6 +14,7 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 @Repository
+@JaversSpringDataAuditable
 public interface RoleRepository extends MongoRepository<Role, String> {
 
     @Query("{'isDeleted':false}")

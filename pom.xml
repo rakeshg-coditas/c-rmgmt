@@ -331,6 +331,11 @@
             <artifactId>google-api-client</artifactId>
             <version>1.30.2</version>
         </dependency>
+        <dependency>
+            <groupId>org.javers</groupId>
+            <artifactId>javers-spring-boot-starter-mongo</artifactId>
+            <version>5.6.3</version>
+        </dependency>
     </dependencies>
 
     <build>
