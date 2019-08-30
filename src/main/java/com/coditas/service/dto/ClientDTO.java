@@ -11,6 +11,7 @@ public class ClientDTO implements Serializable {
     private String id;
 
     @NotNull
+    @NotEmpty
     @Size(min = 1)
     private String name;
 

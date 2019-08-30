@@ -5,6 +5,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import java.util.regex.Pattern;
 
 /**
  * @author rakesh.ghonmode
@@ -63,6 +64,24 @@ public class ValidatorInterfaceImpl implements ValidatorInterface {
             }
         }
         return message;
+    }
+
+    @Override
+    public String matchEmailRegEx(String field){
+        String errorMsg = "";
+
+        String emailRegEx = "^(.+)@(.+)$";
+        try {
+            Method getterMethodName = BeanUtils.getPropertyDescriptor(myClassObject.getClass(),field).getReadMethod();
+            String value = (String)getterMethodName.invoke(myClassObject);
+            boolean match = Pattern.matches(emailRegEx,value);
+            if(!match){
+                errorMsg = field + " is not valid";
+            }
+        }catch(Exception e){
+            errorMsg = e.getMessage();
+        }
+        return errorMsg;
     }
 
 }

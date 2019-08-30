@@ -4,10 +4,12 @@ import com.coditas.service.ClientService;
 import com.coditas.web.rest.errors.BadRequestAlertException;
 import com.coditas.service.dto.ClientDTO;
 
+import com.coditas.web.rest.validations.ValidatorInterface;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +35,9 @@ public class ClientResource {
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
 
+    @Autowired
+    ValidatorInterface validatorInterface;
+
     private final ClientService clientService;
 
     public ClientResource(ClientService clientService) {
@@ -52,6 +57,7 @@ public class ClientResource {
         if (clientDTO.getId() != null) {
             throw new BadRequestAlertException("A new client cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        validateClient(clientDTO);
         ClientDTO result = clientService.save(clientDTO,false);
         return ResponseEntity.created(new URI("/api/clients/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
@@ -73,6 +79,7 @@ public class ClientResource {
         if (clientDTO.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
+        validateClient(clientDTO);
         ClientDTO result = clientService.save(clientDTO,true);
         String msg = "";
         if(result == null )
@@ -122,4 +129,20 @@ public class ClientResource {
         clientService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id)).build();
     }
+
+    public ResponseEntity<ClientDTO> validateClient(ClientDTO clientDTO){
+
+        validatorInterface.validate(clientDTO);
+
+        String errorMsg = "";
+
+        errorMsg = validatorInterface.checkNullOrEmptyValue("name");
+        errorMsg = errorMsg + validatorInterface.checkNullOrEmptyValue("email");
+        errorMsg = errorMsg + validatorInterface.matchEmailRegEx("email");
+
+        if(!errorMsg.trim().isEmpty())
+            throw  new BadRequestAlertException(errorMsg,ENTITY_NAME,"invalid");
+        return null;
+    }
+
 }

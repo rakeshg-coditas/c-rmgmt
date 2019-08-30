@@ -16,4 +16,6 @@ public interface ValidatorInterface {
 
     String checkIfValidInteger(String field);
 
+    String matchEmailRegEx(String field);
+
 }
